@@ -200,21 +200,6 @@ flutter test integration_test/
 - Minimum iOS Version: 11.0
 - Permissions: Camera, Photo Library
 
-## 🤝 Đóng góp
-
-Dự án này hiện đang trong giai đoạn phát triển. Nếu bạn muốn đóng góp:
-
-1. Fork dự án (khi đã được upload lên GitHub)
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
-
-## 📄 License
-
-Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE` để biết thêm chi tiết.
-
 ## 👥 Tác giả
 
 - **Your Name** - *Initial work* - [NguyenQuan1763](https://github.com/NguyenQuan1763) *(sẽ cập nhật khi upload lên GitHub)*
