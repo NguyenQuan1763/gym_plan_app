@@ -30,8 +30,9 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: isLight ? Colors.white : Colors.black87,
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orange,
@@ -61,7 +62,7 @@ class _BottomNavState extends State<BottomNav> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Color(0x30FFFFFF),
+        color: isLight ? Colors.white : const Color(0x30FFFFFF),
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         child: SizedBox(
@@ -70,20 +71,20 @@ class _BottomNavState extends State<BottomNav> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Icons.home, color: _selectedIndex == 0 ? Colors.orange : Colors.grey),
+                icon: Icon(Icons.home, color: _selectedIndex == 0 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(0),
               ),
               IconButton(
-                icon: Icon(Icons.fitness_center, color: _selectedIndex == 1 ? Colors.orange : Colors.grey),
+                icon: Icon(Icons.fitness_center, color: _selectedIndex == 1 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(1),
               ),
               SizedBox(width: 40),
               IconButton(
-                icon: Icon(Icons.local_pizza, color: _selectedIndex == 2 ? Colors.orange : Colors.grey),
+                icon: Icon(Icons.local_pizza, color: _selectedIndex == 2 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(2),
               ),
               IconButton(
-                icon: Icon(Icons.settings, color: _selectedIndex == 3 ? Colors.orange : Colors.grey),
+                icon: Icon(Icons.settings, color: _selectedIndex == 3 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(3),
               ),
             ],

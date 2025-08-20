@@ -319,42 +319,6 @@ class GymDatabaseHelper {
 
   Future<List<Meal>> getMealsByDay(String day) async {
     final db = await database;
-    // Chỉ tự động bổ sung 3 bữa mặc định nếu thiếu, KHÔNG xoá dữ liệu người dùng
-    final existing = await db.query('meals', where: 'date = ?', whereArgs: [day]);
-    final existingTypes = existing
-        .map((m) => (m['mealType'] ?? '').toString())
-        .toSet();
-
-    if (!(existingTypes.contains('Breakfast') &&
-        existingTypes.contains('Lunch') &&
-        existingTypes.contains('Dinner'))) {
-      final dateObj = DateTime.parse(day);
-      final dayOffset = dateObj.difference(DateTime(DateTime.now().year)).inDays;
-
-      final breakfast = _breakfastOptions[(dayOffset) % _breakfastOptions.length];
-      final lunch = _lunchOptions[(dayOffset * 3 + 1) % _lunchOptions.length];
-      final dinner = _dinnerOptions[(dayOffset * 5 + 2) % _dinnerOptions.length];
-
-      final defaults = [
-        {'mealType': 'Breakfast', ...breakfast, 'time': '07:00'},
-        {'mealType': 'Lunch', ...lunch, 'time': '12:00'},
-        {'mealType': 'Dinner', ...dinner, 'time': '18:00'},
-      ];
-
-      for (final meal in defaults) {
-        if (!existingTypes.contains(meal['mealType'])) {
-          await db.insert('meals', {
-            'mealType': meal['mealType'],
-            'foodName': meal['foodName'],
-            'calories': meal['calories'],
-            'note': meal['note'],
-            'date': day,
-            'time': meal['time'],
-            'completed': 0,
-          });
-        }
-      }
-    }
     final res = await db.query('meals', where: 'date = ?', whereArgs: [day]);
     return res
         .map((e) => Meal.fromMap(e))

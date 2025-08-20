@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../onboard/welcome_screen.dart';
+import '../theme/theme_controller.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,6 +10,18 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _isDarkMode = true; // Mặc định là dark mode
+
+  @override
+  void initState() {
+    super.initState();
+    _isDarkMode = ThemeController.instance.themeMode.value == ThemeMode.dark;
+    ThemeController.instance.themeMode.addListener(() {
+      if (!mounted) return;
+      setState(() {
+        _isDarkMode = ThemeController.instance.themeMode.value == ThemeMode.dark;
+      });
+    });
+  }
 
   Future<void> _logout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
@@ -24,16 +37,14 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _toggleTheme() {
-    setState(() {
-      _isDarkMode = !_isDarkMode;
-    });
-    // TODO: Implement theme switching logic
+    ThemeController.instance.toggle();
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: isLight ? Colors.white : Colors.black87,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -48,9 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Cài đặt',
-                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(color: isLight ? Colors.black : Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
               Expanded(
@@ -61,8 +72,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.grey[900],
+                        color: isLight ? Colors.white : Colors.grey[900],
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                       ),
                       child: Row(
                         children: [
@@ -79,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(
                                   'Giao diện',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: isLight ? Colors.black : Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -87,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(
                                   _isDarkMode ? 'Chế độ tối' : 'Chế độ sáng',
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    color: isLight ? Colors.black54 : Colors.grey,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -108,14 +120,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.red[900],
+                        color: isLight ? const Color(0xFFFFE5E5) : Colors.red[900],
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: isLight ? Colors.red.shade200 : Colors.transparent),
                       ),
                       child: Row(
                         children: [
                           const Icon(
                             Icons.logout,
-                            color: Colors.white,
+                            color: Colors.red,
                             size: 24,
                           ),
                           const SizedBox(width: 16),
@@ -126,7 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(
                                   'Đăng xuất',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: isLight ? Colors.black : Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -134,7 +147,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Text(
                                   'Thoát khỏi tài khoản',
                                   style: TextStyle(
-                                    color: Colors.white70,
+                                    color: isLight ? Colors.black54 : Colors.white70,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -145,7 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             onPressed: () => _logout(context),
                             icon: const Icon(
                               Icons.arrow_forward_ios,
-                              color: Colors.white,
+                              color: Colors.red,
                               size: 20,
                             ),
                           ),

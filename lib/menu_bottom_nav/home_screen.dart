@@ -72,8 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isLight ? Colors.white : Colors.black,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -97,22 +98,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hi, $_userName", style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        "Hi, $_userName",
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const Text("Welcome to GymPlanner", style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                   const Spacer(),
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.more_vert, color: Colors.white),
-                    color: Colors.grey[900],
+                    icon: Icon(Icons.more_vert, color: isLight ? Colors.black : Colors.white),
+                    color: isLight ? Colors.white : Colors.grey[900],
                     itemBuilder: (context) => [
-                      const PopupMenuItem<String>(
+                      PopupMenuItem<String>(
                         value: 'logout',
                         child: Row(
                           children: [
-                            Icon(Icons.logout, color: Colors.white),
+                            Icon(Icons.logout, color: isLight ? Colors.black : Colors.white),
                             SizedBox(width: 8),
-                            Text('Đăng xuất', style: TextStyle(color: Colors.white)),
+                            Text('Đăng xuất', style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                           ],
                         ),
                       ),
@@ -143,13 +153,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         margin: const EdgeInsets.only(right: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.orange : Colors.grey[850],
+                          color: isSelected ? Colors.orange : (isLight ? Colors.white : Colors.grey[850]),
                           borderRadius: BorderRadius.circular(10),
+                          border: isSelected
+                              ? null
+                              : Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                         ),
                         child: Column(
                           children: [
-                            Text(dayLabel, style: const TextStyle(color: Colors.white)),
-                            Text("${day.day}", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            Text(
+                              dayLabel,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : (isLight ? Colors.black : Colors.white),
+                              ),
+                            ),
+                            Text(
+                              "${day.day}",
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : (isLight ? Colors.black : Colors.white),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -161,14 +189,17 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               // Lịch tập
-              const Text("Danh sách lịch tập hôm nay", style: TextStyle(color: Colors.white, fontSize: 16)),
+              Text(
+                "Danh sách lịch tập hôm nay",
+                style: TextStyle(color: isLight ? Colors.black : Colors.white, fontSize: 16),
+              ),
               const SizedBox(height: 10),
               SizedBox(
                 height: 120,
                 child: _loading
                     ? const Center(child: CircularProgressIndicator())
                     : (_todayWorkouts.isEmpty
-                    ? const Center(child: Text("Không có bài tập", style: TextStyle(color: Colors.grey)))
+                    ? Center(child: Text("Không có bài tập", style: TextStyle(color: isLight ? Colors.black54 : Colors.grey)))
                     : ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _todayWorkouts.length,
@@ -179,22 +210,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: const EdgeInsets.only(right: 10),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.grey[850],
+                        color: isLight ? Colors.white : Colors.grey[850],
                         borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Nhóm cơ: ${workout.muscleGroup}",
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: isLight ? Colors.black : Colors.white, fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 2),
                           Text(
                             "Bài tập: ${workout.name}",
-                            style: const TextStyle(color: Colors.grey),
+                            style: TextStyle(color: isLight ? Colors.black54 : Colors.grey),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -203,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               const Icon(Icons.access_time, color: Colors.orange, size: 16),
                               const SizedBox(width: 4),
-                              Text(workout.time, style: const TextStyle(color: Colors.white)),
+                              Text(workout.time, style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                             ],
                           )
                         ],
@@ -216,14 +248,17 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               // Bữa ăn
-              const Text("Danh sách bữa ăn", style: TextStyle(color: Colors.white, fontSize: 16)),
+              Text(
+                "Danh sách bữa ăn",
+                style: TextStyle(color: isLight ? Colors.black : Colors.white, fontSize: 16),
+              ),
               const SizedBox(height: 10),
               SizedBox(
                 height: 120,
                 child: _loading
                     ? const Center(child: CircularProgressIndicator())
                     : (_todayMeals.isEmpty
-                    ? const Center(child: Text("Không có bữa ăn", style: TextStyle(color: Colors.grey)))
+                    ? Center(child: Text("Không có bữa ăn", style: TextStyle(color: isLight ? Colors.black54 : Colors.grey)))
                     : ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _todayMeals.length,
@@ -234,22 +269,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: const EdgeInsets.only(right: 10),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.grey[850],
+                        color: isLight ? Colors.white : Colors.grey[850],
                         borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Loại bữa: ${meal.mealType}",
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: isLight ? Colors.black : Colors.white, fontWeight: FontWeight.bold),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 2),
                           Text(
                             "Tên món: ${meal.foodName}",
-                            style: const TextStyle(color: Colors.grey),
+                            style: TextStyle(color: isLight ? Colors.black54 : Colors.grey),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -258,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               const Icon(Icons.local_fire_department, color: Colors.orange, size: 16),
                               const SizedBox(width: 4),
-                              Text("${meal.calories} Kcal", style: const TextStyle(color: Colors.white)),
+                              Text("${meal.calories} Kcal", style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                             ],
                           )
                         ],

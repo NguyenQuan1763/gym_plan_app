@@ -41,6 +41,7 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Dismissible(
       key: Key(meal.id.toString()),
       direction: DismissDirection.endToStart,
@@ -75,23 +76,26 @@ class MealItem extends StatelessWidget {
                   flex: 4,
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF2A2A2A),
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      color: isLight ? Colors.white : const Color(0xFF2A2A2A),
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(12),
                         bottomLeft: Radius.circular(12),
+                      ),
+                      border: Border.all(
+                        color: isLight ? Colors.grey.shade300 : Colors.transparent,
                       ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Loại bữa: ${meal.mealType}",
-                            style: const TextStyle(
-                                color: Colors.white,
+                            style: TextStyle(
+                                color: isLight ? Colors.black : Colors.white,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Text("Tên món: ${meal.foodName}",
-                            style: const TextStyle(color: Colors.grey)),
+                            style: TextStyle(color: isLight ? Colors.black54 : Colors.grey)),
                         const Spacer(),
                         Row(
                           children: [
@@ -99,7 +103,7 @@ class MealItem extends StatelessWidget {
                                 size: 16, color: Colors.orange),
                             const SizedBox(width: 4),
                             Text("${meal.calories} Kcal",
-                                style: const TextStyle(color: Colors.white)),
+                                style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                           ],
                         ),
                       ],

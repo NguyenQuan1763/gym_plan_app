@@ -106,8 +106,9 @@ class _MealPageState extends State<MealPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isLight ? Colors.white : Colors.black,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -131,22 +132,29 @@ class _MealPageState extends State<MealPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hi, $_userName", style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        "Hi, $_userName",
+                        style: TextStyle(
+                          color: isLight ? Colors.black : Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const Text("Welcome to GymPlanner", style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                   const Spacer(),
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.more_vert, color: Colors.white),
-                    color: Colors.grey[900],
+                    icon: Icon(Icons.more_vert, color: isLight ? Colors.black : Colors.white),
+                    color: isLight ? Colors.white : Colors.grey[900],
                     itemBuilder: (context) => [
-                      const PopupMenuItem<String>(
+                      PopupMenuItem<String>(
                         value: 'logout',
                         child: Row(
                           children: [
-                            Icon(Icons.logout, color: Colors.white),
+                            Icon(Icons.logout, color: isLight ? Colors.black : Colors.white),
                             SizedBox(width: 8),
-                            Text('Đăng xuất', style: TextStyle(color: Colors.white)),
+                            Text('Đăng xuất', style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                           ],
                         ),
                       ),
@@ -177,15 +185,27 @@ class _MealPageState extends State<MealPage> {
                         margin: const EdgeInsets.only(right: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.orange : Colors.grey[850],
+                          color: isSelected ? Colors.orange : (isLight ? Colors.white : Colors.grey[850]),
                           borderRadius: BorderRadius.circular(10),
+                          border: isSelected
+                              ? null
+                              : Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                         ),
                         child: Column(
                           children: [
-                            Text(dayLabel, style: const TextStyle(color: Colors.white)),
-                            Text("${day.day}",
-                                style: const TextStyle(
-                                    color: Colors.white, fontWeight: FontWeight.bold)),
+                            Text(
+                              dayLabel,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : (isLight ? Colors.black : Colors.white),
+                              ),
+                            ),
+                            Text(
+                              "${day.day}",
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : (isLight ? Colors.black : Colors.white),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -195,17 +215,17 @@ class _MealPageState extends State<MealPage> {
               ),
 
               const SizedBox(height: 20),
-              const Text("Danh sách bữa ăn",
-                  style: TextStyle(color: Colors.white, fontSize: 16)),
+              Text("Danh sách bữa ăn",
+                  style: TextStyle(color: isLight ? Colors.black : Colors.white, fontSize: 16)),
               const SizedBox(height: 10),
 
               Expanded(
                 child: _loading
                     ? const Center(child: CircularProgressIndicator())
                     : _meals.isEmpty
-                    ? const Center(
+                    ? Center(
                     child: Text("Không có bữa ăn",
-                        style: TextStyle(color: Colors.grey)))
+                        style: TextStyle(color: isLight ? Colors.black54 : Colors.grey)))
                     : ListView.builder(
                   itemCount: _meals.length,
                   itemBuilder: (context, index) {
