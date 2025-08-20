@@ -111,7 +111,7 @@ dependencies:
 ### 1. Tải về dự án
 ```bash
 # Nếu đã có repository trên GitHub
-git clone https://github.com/your-username/gym_plan_app.git
+git clone https://github.com/NguyenQuan1763/gym_plan_app.git
 cd gym_plan_app
 
 # Hoặc tải về file ZIP và giải nén
@@ -200,24 +200,9 @@ flutter test integration_test/
 - Minimum iOS Version: 11.0
 - Permissions: Camera, Photo Library
 
-## 🤝 Đóng góp
-
-Dự án này hiện đang trong giai đoạn phát triển. Nếu bạn muốn đóng góp:
-
-1. Fork dự án (khi đã được upload lên GitHub)
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
-
-## 📄 License
-
-Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE` để biết thêm chi tiết.
-
 ## 👥 Tác giả
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/your-username) *(sẽ cập nhật khi upload lên GitHub)*
+- **Nguyễn Minh Quân** - *Initial work* - [NguyenQuan1763](https://github.com/NguyenQuan1763).
 
 ## 🙏 Acknowledgments
 
@@ -225,12 +210,5 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE`
 - Cộng đồng Flutter/Dart
 - Tất cả contributors đã đóng góp vào dự án
 
-## 📞 Liên hệ
-
-- Email: your.email@example.com
-- GitHub: [@your-username](https://github.com/your-username) *(sẽ cập nhật khi upload lên GitHub)*
-- LinkedIn: [Your Name](https://linkedin.com/in/your-profile)
-
----
 
 ⭐ Nếu dự án này hữu ích, hãy cho chúng tôi một star khi repository được upload lên GitHub!
