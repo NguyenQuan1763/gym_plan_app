@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange, brightness: Brightness.dark),
+            colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFF6A00), brightness: Brightness.dark),
             scaffoldBackgroundColor: Colors.black,
           ),
           home: SplashScreen(),

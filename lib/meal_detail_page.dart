@@ -13,44 +13,48 @@ class MealDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    final accent = isLight ? Colors.orange : const Color(0xFFFF6A00);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text("Chi tiết bữa ăn"),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.orange,
+        title: Text("Chi tiết bữa ăn", style: TextStyle(color: isLight ? Colors.black : Colors.white)),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: accent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: isLight ? Colors.black : Colors.white),
       ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF2A2A2A),
+            color: isLight ? Colors.white : const Color(0xFF2A2A2A),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.orange),
+            border: Border.all(color: accent),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 meal.foodName,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: isLight ? Colors.black : Colors.white,
                 ),
               ),
               const SizedBox(height: 16),
 
               // Loại bữa
               Text("Loại bữa: ${meal.mealType}",
-                  style: const TextStyle(color: Colors.orange)),
+                  style: TextStyle(color: accent)),
 
               const SizedBox(height: 8),
 
               // Ghi chú
               Text("Ghi chú: ${meal.note}",
-                  style: const TextStyle(color: Colors.white)),
+                  style: TextStyle(color: isLight ? Colors.black87 : Colors.white)),
 
               const SizedBox(height: 8),
 
@@ -58,10 +62,10 @@ class MealDetailPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.local_fire_department, color: Colors.orange),
+                  Icon(Icons.local_fire_department, color: accent),
                   const SizedBox(width: 4),
                   Text("${meal.calories} Kcal",
-                      style: const TextStyle(color: Colors.white)),
+                      style: TextStyle(color: isLight ? Colors.black87 : Colors.white)),
                 ],
               ),
 
@@ -71,9 +75,9 @@ class MealDetailPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.access_time, color: Colors.orange),
+                  Icon(Icons.access_time, color: accent),
                   const SizedBox(width: 4),
-                  Text(meal.time, style: const TextStyle(color: Colors.white)),
+                  Text(meal.time, style: TextStyle(color: isLight ? Colors.black87 : Colors.white)),
                 ],
               ),
 

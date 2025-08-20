@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         margin: const EdgeInsets.only(right: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.orange : (isLight ? Colors.white : Colors.grey[850]),
+                          color: isSelected ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.white : Colors.grey[850]),
                           borderRadius: BorderRadius.circular(10),
                           border: isSelected
                               ? null
@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Spacer(),
                           Row(
                             children: [
-                              const Icon(Icons.access_time, color: Colors.orange, size: 16),
+                              Icon(Icons.access_time, color: isLight ? Colors.orange : const Color(0xFFFF6A00), size: 16),
                               const SizedBox(width: 4),
                               Text(workout.time, style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                             ],
@@ -292,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Spacer(),
                           Row(
                             children: [
-                              const Icon(Icons.local_fire_department, color: Colors.orange, size: 16),
+                              Icon(Icons.local_fire_department, color: isLight ? Colors.orange : const Color(0xFFFF6A00), size: 16),
                               const SizedBox(width: 4),
                               Text("${meal.calories} Kcal", style: TextStyle(color: isLight ? Colors.black : Colors.white)),
                             ],

@@ -121,8 +121,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isLight ? Colors.white : Colors.black,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -134,21 +135,21 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
+                      icon: Icon(Icons.arrow_back, color: isLight ? Colors.black : Colors.white),
                       onPressed: () => Navigator.pop(context),
                     ),
                     Expanded(
                       child: Text(
                         "Thêm lịch tập",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: isLight ? Colors.black : Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.note_add_outlined, color: Colors.white),
+                      icon: Icon(Icons.note_add_outlined, color: isLight ? Colors.black : Colors.white),
                       onPressed: () {},
                     ),
                   ],
@@ -166,16 +167,17 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 // Dropdown chọn nhóm cơ
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: isLight ? Colors.white : Colors.grey[900],
                     borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       value: selectedMuscleGroup,
-                      hint: Text("Chọn nhóm cơ", style: TextStyle(color: Colors.white70)),
-                      dropdownColor: Colors.grey[900],
-                      style: TextStyle(color: Colors.white),
+                      hint: Text("Chọn nhóm cơ", style: TextStyle(color: isLight ? Colors.black54 : Colors.white70)),
+                      dropdownColor: isLight ? Colors.white : Colors.grey[900],
+                      style: TextStyle(color: isLight ? Colors.black : Colors.white),
                       isExpanded: true,
                       onChanged: (value) {
                         setState(() {
@@ -196,15 +198,15 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 // Tên bài
                 TextField(
                   controller: _titleController,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: isLight ? Colors.black : Colors.white),
                   decoration: InputDecoration(
                     hintText: "Tên bài",
-                    hintStyle: TextStyle(color: Colors.white54),
+                    hintStyle: TextStyle(color: isLight ? Colors.black54 : Colors.white54),
                     filled: true,
-                    fillColor: Colors.grey[900],
+                    fillColor: isLight ? Colors.white : Colors.grey[900],
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+                      borderSide: BorderSide(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                     ),
                   ),
                 ),
@@ -214,15 +216,15 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 TextField(
                   controller: _noteController,
                   maxLines: 3,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: isLight ? Colors.black : Colors.white),
                   decoration: InputDecoration(
                     hintText: "Ghi chú...",
-                    hintStyle: TextStyle(color: Colors.white54),
+                    hintStyle: TextStyle(color: isLight ? Colors.black54 : Colors.white54),
                     filled: true,
-                    fillColor: Colors.grey[900],
+                    fillColor: isLight ? Colors.white : Colors.grey[900],
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+                      borderSide: BorderSide(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                     ),
                   ),
                 ),
@@ -234,8 +236,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[900],
+                          color: isLight ? Colors.white : Colors.grey[900],
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                         ),
                         child: Row(
                           children: [
@@ -246,16 +249,16 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                                   selectedDate != null
                                       ? DateFormat('dd/MM/yyyy').format(selectedDate!)
                                       : DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: isLight ? Colors.black : Colors.white),
                                 ),
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.close, color: Colors.orange),
+                              icon: Icon(Icons.close, color: isLight ? Colors.orange : Color(0xFFFF6A00)),
                               onPressed: _clearDate,
                             ),
                             IconButton(
-                              icon: Icon(Icons.calendar_today, color: Colors.orange),
+                              icon: Icon(Icons.calendar_today, color: isLight ? Colors.orange : Color(0xFFFF6A00)),
                               onPressed: _pickDate,
                             ),
                           ],
@@ -272,8 +275,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[900],
+                          color: isLight ? Colors.white : Colors.grey[900],
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                         ),
                         child: Row(
                           children: [
@@ -284,16 +288,16 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                                   selectedTime != null
                                       ? selectedTime!.format(context)
                                       : TimeOfDay.now().format(context),
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: isLight ? Colors.black : Colors.white),
                                 ),
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.close, color: Colors.orange),
+                              icon: Icon(Icons.close, color: isLight ? Colors.orange : Color(0xFFFF6A00)),
                               onPressed: _clearTime,
                             ),
                             IconButton(
-                              icon: Icon(Icons.access_time, color: Colors.orange),
+                              icon: Icon(Icons.access_time, color: isLight ? Colors.orange : Color(0xFFFF6A00)),
                               onPressed: _pickTime,
                             ),
                           ],
@@ -309,7 +313,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: isLight ? Colors.orange : Color(0xFFFF6A00),
                       padding: EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

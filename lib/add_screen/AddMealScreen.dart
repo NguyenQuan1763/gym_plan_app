@@ -84,18 +84,20 @@ class _AddMealScreenState extends State<AddMealScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    final accent = isLight ? Colors.orange : const Color(0xFFFF6A00);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: isLight ? Colors.black : Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Thêm bữa ăn',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: isLight ? Colors.black : Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -112,8 +114,8 @@ class _AddMealScreenState extends State<AddMealScreen> {
 
               // Dropdown bữa ăn
               DropdownButtonFormField<String>(
-                dropdownColor: Colors.grey[900],
-                style: const TextStyle(color: Colors.white),
+                dropdownColor: isLight ? Colors.white : Colors.grey[900],
+                style: TextStyle(color: isLight ? Colors.black : Colors.white),
                 decoration: _inputDecoration('Chọn bữa ăn'),
                 value: _selectedMealType.isEmpty ? null : _selectedMealType,
                 items: _mealTypes
@@ -130,7 +132,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
               // Tên món ăn
               TextFormField(
                 decoration: _inputDecoration('Tên món ăn'),
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: isLight ? Colors.black : Colors.white),
                 onSaved: (val) => _foodName = val!.trim(),
                 validator: (val) => val == null || val.isEmpty ? 'Nhập tên món ăn' : null,
               ),
@@ -139,7 +141,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
               // Lượng calo
               TextFormField(
                 decoration: _inputDecoration('Lượng calo'),
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: isLight ? Colors.black : Colors.white),
                 keyboardType: TextInputType.number,
                 onSaved: (val) => _calories = int.tryParse(val ?? '0') ?? 0,
                 validator: (val) => val == null || val.isEmpty ? 'Nhập lượng calo' : null,
@@ -149,7 +151,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
               // Ghi chú
               TextFormField(
                 decoration: _inputDecoration('Ghi chú...'),
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: isLight ? Colors.black : Colors.white),
                 maxLines: 3,
                 onSaved: (val) => _note = val ?? '',
               ),
@@ -161,24 +163,24 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: isLight ? Colors.white : Colors.grey[900],
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade800),
+                    border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         DateFormat('dd/MM/yyyy').format(_selectedDate),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: isLight ? Colors.black : Colors.white),
                       ),
                       Row(
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.clear, color: Colors.orange),
+                            icon: Icon(Icons.clear, color: accent),
                             onPressed: () => setState(() => _selectedDate = DateTime.now()),
                           ),
-                          const Icon(Icons.calendar_today, color: Colors.orange),
+                          Icon(Icons.calendar_today, color: accent),
                         ],
                       ),
                     ],
@@ -193,24 +195,24 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: isLight ? Colors.white : Colors.grey[900],
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade800),
+                    border: Border.all(color: isLight ? Colors.grey.shade300 : Colors.transparent),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         _selectedTime.format(context),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: isLight ? Colors.black : Colors.white),
                       ),
                       Row(
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.clear, color: Colors.orange),
+                            icon: Icon(Icons.clear, color: accent),
                             onPressed: () => setState(() => _selectedTime = TimeOfDay.now()),
                           ),
-                          const Icon(Icons.access_time, color: Colors.orange),
+                          Icon(Icons.access_time, color: accent),
                         ],
                       ),
                     ],
@@ -225,7 +227,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                 child: ElevatedButton(
                   onPressed: _saveMeal,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
+                    backgroundColor: accent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
@@ -243,19 +245,21 @@ class _AddMealScreenState extends State<AddMealScreen> {
   }
 
   InputDecoration _inputDecoration(String label) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    final accent = isLight ? Colors.orange : const Color(0xFFFF6A00);
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(color: Colors.white70),
+      labelStyle: TextStyle(color: isLight ? Colors.black54 : Colors.white70),
       filled: true,
-      fillColor: Colors.grey[900],
+      fillColor: isLight ? Colors.white : Colors.grey[900],
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: Colors.grey.shade800),
+        borderSide: BorderSide(color: isLight ? Colors.grey.shade300 : Colors.transparent),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.orange),
+        borderSide: BorderSide(color: accent),
       ),
     );
   }

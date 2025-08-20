@@ -319,6 +319,7 @@ class GymDatabaseHelper {
 
   Future<List<Meal>> getMealsByDay(String day) async {
     final db = await database;
+    // Không tự thêm mặc định để đảm bảo xoá giữ nguyên
     final res = await db.query('meals', where: 'date = ?', whereArgs: [day]);
     return res
         .map((e) => Meal.fromMap(e))

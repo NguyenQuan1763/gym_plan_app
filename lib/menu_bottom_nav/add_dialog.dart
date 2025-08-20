@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_plan_app/add_screen/AddMealScreen.dart';
 import 'package:gym_plan_app/add_screen/AddWorkoutScreen.dart';
-import 'page_workout.dart';
-import 'page_meal.dart';
+
 
 class AddDialog extends StatelessWidget {
   @override
@@ -33,7 +32,7 @@ class AddDialog extends StatelessWidget {
                       Navigator.of(context).pop('workout');
                     }
                   },
-                  child: Text("LỊCH TẬP", style: TextStyle(color: Colors.orange)),
+                  child: Text("LỊCH TẬP", style: TextStyle(color: Theme.of(context).brightness == Brightness.light ? Colors.orange : const Color(0xFFFF6A00))),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -42,13 +41,13 @@ class AddDialog extends StatelessWidget {
                       Navigator.of(context).pop('meal');
                     }
                   },
-                  child: Text("BỮA ĂN", style: TextStyle(color: Colors.orange)),
+                  child: Text("BỮA ĂN", style: TextStyle(color: Theme.of(context).brightness == Brightness.light ? Colors.orange : const Color(0xFFFF6A00))),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("HỦY", style: TextStyle(color: Colors.orange)),
+                  child: Text("HỦY", style: TextStyle(color: Theme.of(context).brightness == Brightness.light ? Colors.orange : const Color(0xFFFF6A00))),
                 ),
               ],
             )

@@ -80,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         children: [
                           Icon(
                             _isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                            color: Colors.orange,
+                            color: isLight ? Colors.orange : const Color(0xFFFF6A00),
                             size: 24,
                           ),
                           const SizedBox(width: 16),
@@ -109,7 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           Switch(
                             value: _isDarkMode,
                             onChanged: (value) => _toggleTheme(),
-                            activeColor: Colors.orange,
+                            activeColor: isLight ? Colors.orange : const Color(0xFFFF6A00),
                           ),
                         ],
                       ),

@@ -185,7 +185,7 @@ class _MealPageState extends State<MealPage> {
                         margin: const EdgeInsets.only(right: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         decoration: BoxDecoration(
-                          color: isSelected ? Colors.orange : (isLight ? Colors.white : Colors.grey[850]),
+                          color: isSelected ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.white : Colors.grey[850]),
                           borderRadius: BorderRadius.circular(10),
                           border: isSelected
                               ? null

@@ -35,7 +35,7 @@ class _BottomNavState extends State<BottomNav> {
       backgroundColor: isLight ? Colors.white : Colors.black87,
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
+        backgroundColor: isLight ? Colors.orange : const Color(0xFFFF6A00),
         shape: CircleBorder(),
         onPressed: () async {
           final result = await showDialog(
@@ -71,20 +71,20 @@ class _BottomNavState extends State<BottomNav> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: Icon(Icons.home, color: _selectedIndex == 0 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
+                icon: Icon(Icons.home, color: _selectedIndex == 0 ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(0),
               ),
               IconButton(
-                icon: Icon(Icons.fitness_center, color: _selectedIndex == 1 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
+                icon: Icon(Icons.fitness_center, color: _selectedIndex == 1 ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(1),
               ),
               SizedBox(width: 40),
               IconButton(
-                icon: Icon(Icons.local_pizza, color: _selectedIndex == 2 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
+                icon: Icon(Icons.local_pizza, color: _selectedIndex == 2 ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(2),
               ),
               IconButton(
-                icon: Icon(Icons.settings, color: _selectedIndex == 3 ? Colors.orange : (isLight ? Colors.black54 : Colors.grey)),
+                icon: Icon(Icons.settings, color: _selectedIndex == 3 ? (isLight ? Colors.orange : const Color(0xFFFF6A00)) : (isLight ? Colors.black54 : Colors.grey)),
                 onPressed: () => _onItemTapped(3),
               ),
             ],

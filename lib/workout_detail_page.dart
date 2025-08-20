@@ -13,43 +13,47 @@ class WorkoutDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
+    final accent = isLight ? Colors.orange : const Color(0xFFFF6A00);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text("Chi tiết bài tập"),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.orange,
+        title: Text("Chi tiết bài tập", style: TextStyle(color: isLight ? Colors.black : Colors.white)),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: accent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: isLight ? Colors.black : Colors.white),
       ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF2A2A2A),
+            color: isLight ? Colors.white : const Color(0xFF2A2A2A),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.orange),
+            border: Border.all(color: accent),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 workout.name,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: isLight ? Colors.black : Colors.white),
               ),
               const SizedBox(height: 16),
 
               // Nhóm cơ
               Text("Nhóm cơ: ${workout.muscleGroup}",
-                  style: const TextStyle(color: Colors.orange)),
+                  style: TextStyle(color: accent)),
 
               const SizedBox(height: 8),
 
               // Ghi chú
               Text("Ghi chú: ${workout.note}",
-                  style: const TextStyle(color: Colors.white)),
+                  style: TextStyle(color: isLight ? Colors.black87 : Colors.white)),
 
               const SizedBox(height: 8),
 
@@ -57,10 +61,10 @@ class WorkoutDetailPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.access_time, color: Colors.orange),
+                  Icon(Icons.access_time, color: accent),
                   const SizedBox(width: 4),
                   Text(workout.time,
-                      style: const TextStyle(color: Colors.white)),
+                      style: TextStyle(color: isLight ? Colors.black87 : Colors.white)),
                 ],
               ),
 
@@ -93,7 +97,7 @@ class WorkoutDetailPage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.edit, color: Colors.white),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.orange : const Color(0xFFFF6A00),
                   minimumSize: const Size(double.infinity, 50),
                 ),
                 label: const Text("Chỉnh sửa",
