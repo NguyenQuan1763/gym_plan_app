@@ -111,7 +111,7 @@ dependencies:
 ### 1. Tải về dự án
 ```bash
 # Nếu đã có repository trên GitHub
-git clone https://github.com/your-username/gym_plan_app.git
+git clone https://github.com/NguyenQuan1763/gym_plan_app.git
 cd gym_plan_app
 
 # Hoặc tải về file ZIP và giải nén
@@ -217,7 +217,7 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE`
 
 ## 👥 Tác giả
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/your-username) *(sẽ cập nhật khi upload lên GitHub)*
+- **Your Name** - *Initial work* - [NguyenQuan1763](https://github.com/NguyenQuan1763) *(sẽ cập nhật khi upload lên GitHub)*
 
 ## 🙏 Acknowledgments
 
@@ -225,12 +225,5 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE`
 - Cộng đồng Flutter/Dart
 - Tất cả contributors đã đóng góp vào dự án
 
-## 📞 Liên hệ
-
-- Email: your.email@example.com
-- GitHub: [@your-username](https://github.com/your-username) *(sẽ cập nhật khi upload lên GitHub)*
-- LinkedIn: [Your Name](https://linkedin.com/in/your-profile)
-
----
 
 ⭐ Nếu dự án này hữu ích, hãy cho chúng tôi một star khi repository được upload lên GitHub!
