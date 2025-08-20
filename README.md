@@ -202,7 +202,7 @@ flutter test integration_test/
 
 ## 👥 Tác giả
 
-- **Your Name** - *Initial work* - [NguyenQuan1763](https://github.com/NguyenQuan1763) *(sẽ cập nhật khi upload lên GitHub)*
+- **Nguyễn Minh Quân** - *Initial work* - [NguyenQuan1763](https://github.com/NguyenQuan1763).
 
 ## 🙏 Acknowledgments
 
