@@ -70,7 +70,7 @@ class _MealPageState extends State<MealPage> {
     if (!mounted) return;
     setState(() {
       _selectedDayIndex = index;
-      _meals = meals.take(3).toList();
+      _meals = meals; // show all meals including newly added ones
       _loading = false;
     });
   }

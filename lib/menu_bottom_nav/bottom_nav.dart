@@ -37,15 +37,23 @@ class _BottomNavState extends State<BottomNav> {
         backgroundColor: Colors.orange,
         shape: CircleBorder(),
         onPressed: () async {
-          bool? added = await showDialog(
+          final result = await showDialog(
             context: context,
             barrierDismissible: false,
             barrierColor: Colors.black.withOpacity(0.8),
             builder: (context) => AddDialog(),
           );
-          if (added == true && _selectedIndex == 0) {
+          if (!mounted) return;
+          if (result == 'workout') {
+            // Đảm bảo đang ở tab Workout và reload trang
             setState(() {
-              _pages[0] = HomeScreen(); // reload Home
+              _selectedIndex = 1;
+              _pages[1] = WorkoutPage(key: UniqueKey());
+            });
+          } else if (result == 'meal') {
+            setState(() {
+              _selectedIndex = 2;
+              _pages[2] = MealPage(key: UniqueKey());
             });
           }
         },

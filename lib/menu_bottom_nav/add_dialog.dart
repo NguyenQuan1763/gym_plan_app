@@ -27,16 +27,20 @@ class AddDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddWorkoutScreen()));
+                  onPressed: () async {
+                    final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddWorkoutScreen()));
+                    if (result == true) {
+                      Navigator.of(context).pop('workout');
+                    }
                   },
                   child: Text("LỊCH TẬP", style: TextStyle(color: Colors.orange)),
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddMealScreen()));
+                  onPressed: () async {
+                    final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddMealScreen()));
+                    if (result == true) {
+                      Navigator.of(context).pop('meal');
+                    }
                   },
                   child: Text("BỮA ĂN", style: TextStyle(color: Colors.orange)),
                 ),

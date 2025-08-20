@@ -49,20 +49,37 @@ class _AddMealScreenState extends State<AddMealScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
+      // Format thời gian đúng định dạng
+      final timeStr = '${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}';
+
       final newMeal = Meal(
         mealType: _selectedMealType,
         foodName: _foodName,
         calories: _calories,
         note: _note,
         date: DateFormat('yyyy-MM-dd').format(_selectedDate),
-        time: _selectedTime.format(context),
+        time: timeStr,
         completed: false,
-
       );
 
-      await GymDatabaseHelper().insertMeal(newMeal);
-      Navigator.pop(context, true);
+      try {
+        await GymDatabaseHelper().insertMeal(newMeal);
+        _showSnackBar('Meal added successfully!', isSuccess: true);
+        Navigator.pop(context, true);
+      } catch (e) {
+        _showSnackBar('An error occurred: $e');
+      }
     }
+  }
+
+  void _showSnackBar(String message, {bool isSuccess = false}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isSuccess ? Colors.green : Colors.red,
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override

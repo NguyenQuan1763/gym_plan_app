@@ -7,7 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await deleteDatabase(join(await getDatabasesPath(), 'gym_app.db')); // Xoá DB cũ
+  // await deleteDatabase(join(await getDatabasesPath(), 'gym_app.db')); // Xoá DB cũ
 
   runApp(const MyApp());
 

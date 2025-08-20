@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../DatabaseHelper/GymDatabaseHelper.dart';
+import '../model/workout.dart';
 
 class AddWorkoutScreen extends StatefulWidget {
   @override
@@ -15,13 +17,13 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   TimeOfDay? selectedTime;
 
   final List<String> muscleGroups = [
-    'Ngực',
-    'Lưng',
-    'Vai',
-    'Tay trước',
-    'Tay sau',
-    'Chân',
-    'Bụng',
+    'Chest',
+    'Back',
+    'Shoulders',
+    'Biceps',
+    'Triceps',
+    'Legs',
+    'Abs',
   ];
 
   void _pickDate() async {
@@ -60,6 +62,61 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
     setState(() {
       selectedTime = null;
     });
+  }
+
+  Future<void> _saveWorkout() async {
+    // Kiểm tra validation
+    if (selectedMuscleGroup == null || selectedMuscleGroup!.isEmpty) {
+      _showSnackBar('Vui lòng chọn nhóm cơ');
+      return;
+    }
+
+    if (_titleController.text.trim().isEmpty) {
+      _showSnackBar('Vui lòng nhập tên bài tập');
+      return;
+    }
+
+    // Lấy ngày và giờ
+    final date = selectedDate ?? DateTime.now();
+    final time = selectedTime ?? TimeOfDay.now();
+    
+    // Format ngày và giờ
+    final dateStr = DateFormat('yyyy-MM-dd').format(date);
+    final timeStr = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+
+    // Tạo workout object
+    final workout = Workout(
+      muscleGroup: selectedMuscleGroup!,
+      name: _titleController.text.trim(),
+      note: _noteController.text.trim(),
+      date: dateStr,
+      time: timeStr,
+      completed: false,
+    );
+
+    try {
+      // Lưu vào database
+      final dbHelper = GymDatabaseHelper();
+      await dbHelper.insertWorkout(workout);
+      
+      // Hiển thị thông báo thành công
+      _showSnackBar('Đã thêm bài tập thành công!', isSuccess: true);
+      
+      // Quay lại màn hình trước
+      Navigator.pop(context, true);
+    } catch (e) {
+      _showSnackBar('Có lỗi xảy ra: $e');
+    }
+  }
+
+  void _showSnackBar(String message, {bool isSuccess = false}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isSuccess ? Colors.green : Colors.red,
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -258,9 +315,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () {
-                      // Gọi logic lưu ở đây
-                    },
+                    onPressed: _saveWorkout,
                     child: Text(
                       "LƯU",
                       style: TextStyle(

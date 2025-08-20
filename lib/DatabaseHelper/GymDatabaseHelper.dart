@@ -49,6 +49,59 @@ class GymDatabaseHelper {
     {'foodName': 'Mi xao bo', 'calories': 520, 'note': 'Ít dầu'},
   ];
 
+  // ====== Workout plans (single source of truth) ======
+  static const Map<String, List<Map<String, String>>> _workoutPlans = {
+    'Chest': [
+      {'name': 'Bench Press', 'note': '3 sets x 12 reps'},
+      {'name': 'Incline Dumbbell Press', 'note': '3 sets x 10 reps'},
+      {'name': 'Push-up', 'note': '4 sets x 15 reps'},
+      {'name': 'Cable Fly', 'note': '3 sets x 12 reps'},
+      {'name': 'Chest Dip', 'note': '3 sets x 8 reps'},
+    ],
+    'Back': [
+      {'name': 'Pull-up', 'note': '4 sets x 8 reps'},
+      {'name': 'Bent-over Row', 'note': '4 sets x 10 reps'},
+      {'name': 'Lat Pulldown', 'note': '3 sets x 12 reps'},
+      {'name': 'Seated Row', 'note': '3 sets x 12 reps'},
+      {'name': 'Deadlift', 'note': '3 sets x 8 reps'},
+    ],
+    'Legs': [
+      {'name': 'Squat', 'note': '4 sets x 10 reps'},
+      {'name': 'Lunges', 'note': '3 sets x 12 reps each leg'},
+      {'name': 'Leg Press', 'note': '4 sets x 10 reps'},
+      {'name': 'Leg Curl', 'note': '3 sets x 12 reps'},
+      {'name': 'Calf Raise', 'note': '4 sets x 15 reps'},
+    ],
+    'Shoulders': [
+      {'name': 'Overhead Press', 'note': '3 sets x 12 reps'},
+      {'name': 'Lateral Raise', 'note': '3 sets x 15 reps'},
+      {'name': 'Front Raise', 'note': '3 sets x 15 reps'},
+      {'name': 'Rear Delt Fly', 'note': '3 sets x 12 reps'},
+      {'name': 'Arnold Press', 'note': '3 sets x 10 reps'},
+    ],
+    'Arms': [
+      {'name': 'Bicep Curl', 'note': '3 sets x 15 reps'},
+      {'name': 'Hammer Curl', 'note': '3 sets x 15 reps'},
+      {'name': 'Tricep Pushdown', 'note': '3 sets x 12 reps'},
+      {'name': 'Skull Crusher', 'note': '3 sets x 10 reps'},
+      {'name': 'Close-grip Bench Press', 'note': '3 sets x 10 reps'},
+    ],
+    'Abs': [
+      {'name': 'Plank', 'note': '3 sets x 1 min hold'},
+      {'name': 'Crunch', 'note': '3 sets x 20 reps'},
+      {'name': 'Leg Raise', 'note': '3 sets x 15 reps'},
+      {'name': 'Bicycle Crunch', 'note': '3 sets x 20 reps'},
+      {'name': 'Mountain Climber', 'note': '3 sets x 30 secs'},
+    ],
+    'Full Body': [
+      {'name': 'Burpee', 'note': '3 sets x 15 reps'},
+      {'name': 'Kettlebell Swing', 'note': '3 sets x 20 reps'},
+      {'name': 'Thruster', 'note': '3 sets x 12 reps'},
+      {'name': 'Clean and Press', 'note': '3 sets x 8 reps'},
+      {'name': 'Jump Squat', 'note': '3 sets x 15 reps'},
+    ],
+  };
+
   Future<Database> get database async {
     if (_db != null) return _db!;
     _db = await _initDB();
@@ -169,59 +222,7 @@ class GymDatabaseHelper {
     DateTime now = DateTime.now();
 
     // === BÀI TẬP ===
-    Map<String, List<Map<String, String>>> workoutPlans = {
-      'Chest': [
-        {'name': 'Bench Press', 'note': '3 sets x 12 reps'},
-        {'name': 'Incline Dumbbell Press', 'note': '3 sets x 10 reps'},
-        {'name': 'Push-up', 'note': '4 sets x 15 reps'},
-        {'name': 'Cable Fly', 'note': '3 sets x 12 reps'},
-        {'name': 'Chest Dip', 'note': '3 sets x 8 reps'},
-      ],
-      'Back': [
-        {'name': 'Pull-up', 'note': '4 sets x 8 reps'},
-        {'name': 'Bent-over Row', 'note': '4 sets x 10 reps'},
-        {'name': 'Lat Pulldown', 'note': '3 sets x 12 reps'},
-        {'name': 'Seated Row', 'note': '3 sets x 12 reps'},
-        {'name': 'Deadlift', 'note': '3 sets x 8 reps'},
-      ],
-      'Legs': [
-        {'name': 'Squat', 'note': '4 sets x 10 reps'},
-        {'name': 'Lunges', 'note': '3 sets x 12 reps each leg'},
-        {'name': 'Leg Press', 'note': '4 sets x 10 reps'},
-        {'name': 'Leg Curl', 'note': '3 sets x 12 reps'},
-        {'name': 'Calf Raise', 'note': '4 sets x 15 reps'},
-      ],
-      'Shoulders': [
-        {'name': 'Overhead Press', 'note': '3 sets x 12 reps'},
-        {'name': 'Lateral Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Front Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Rear Delt Fly', 'note': '3 sets x 12 reps'},
-        {'name': 'Arnold Press', 'note': '3 sets x 10 reps'},
-      ],
-      'Arms': [
-        {'name': 'Bicep Curl', 'note': '3 sets x 15 reps'},
-        {'name': 'Hammer Curl', 'note': '3 sets x 15 reps'},
-        {'name': 'Tricep Pushdown', 'note': '3 sets x 12 reps'},
-        {'name': 'Skull Crusher', 'note': '3 sets x 10 reps'},
-        {'name': 'Close-grip Bench Press', 'note': '3 sets x 10 reps'},
-      ],
-      'Abs': [
-        {'name': 'Plank', 'note': '3 sets x 1 min hold'},
-        {'name': 'Crunch', 'note': '3 sets x 20 reps'},
-        {'name': 'Leg Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Bicycle Crunch', 'note': '3 sets x 20 reps'},
-        {'name': 'Mountain Climber', 'note': '3 sets x 30 secs'},
-      ],
-      'Full Body': [
-        {'name': 'Burpee', 'note': '3 sets x 15 reps'},
-        {'name': 'Kettlebell Swing', 'note': '3 sets x 20 reps'},
-        {'name': 'Thruster', 'note': '3 sets x 12 reps'},
-        {'name': 'Clean and Press', 'note': '3 sets x 8 reps'},
-        {'name': 'Jump Squat', 'note': '3 sets x 15 reps'},
-      ],
-    };
-
-    List<String> muscleGroups = workoutPlans.keys.toList();
+    List<String> muscleGroups = _workoutPlans.keys.toList();
 
     // === ĐỒ ĂN ===: loại bỏ seed cố định theo Day1..Day7
 
@@ -232,7 +233,7 @@ class GymDatabaseHelper {
 
       // --- Thêm bài tập ---
       String todayMuscle = muscleGroups[i % muscleGroups.length];
-      for (var plan in workoutPlans[todayMuscle]!) {
+      for (var plan in _workoutPlans[todayMuscle]!) {
         await db.insert('workouts', {
           'muscleGroup': todayMuscle,
           'name': plan['name'],
@@ -318,40 +319,40 @@ class GymDatabaseHelper {
 
   Future<List<Meal>> getMealsByDay(String day) async {
     final db = await database;
-    // Đảm bảo luôn có 3 món cho ngày yêu cầu, mỗi ngày khác nhau
+    // Chỉ tự động bổ sung 3 bữa mặc định nếu thiếu, KHÔNG xoá dữ liệu người dùng
     final existing = await db.query('meals', where: 'date = ?', whereArgs: [day]);
-    if (existing.length < 3) {
-      // Xoá dữ liệu cũ của ngày (nếu có) để tránh lẫn
-      await db.delete('meals', where: 'date = ?', whereArgs: [day]);
+    final existingTypes = existing
+        .map((m) => (m['mealType'] ?? '').toString())
+        .toSet();
 
-      // Tạo lại 3 món theo thuật toán chọn chỉ số dựa trên ngày
+    if (!(existingTypes.contains('Breakfast') &&
+        existingTypes.contains('Lunch') &&
+        existingTypes.contains('Dinner'))) {
       final dateObj = DateTime.parse(day);
       final dayOffset = dateObj.difference(DateTime(DateTime.now().year)).inDays;
 
-      final breakfastIdx = (dayOffset) % _breakfastOptions.length;
-      final lunchIdx = (dayOffset * 3 + 1) % _lunchOptions.length;
-      final dinnerIdx = (dayOffset * 5 + 2) % _dinnerOptions.length;
+      final breakfast = _breakfastOptions[(dayOffset) % _breakfastOptions.length];
+      final lunch = _lunchOptions[(dayOffset * 3 + 1) % _lunchOptions.length];
+      final dinner = _dinnerOptions[(dayOffset * 5 + 2) % _dinnerOptions.length];
 
-      final breakfast = _breakfastOptions[breakfastIdx];
-      final lunch = _lunchOptions[lunchIdx];
-      final dinner = _dinnerOptions[dinnerIdx];
-
-      final mealsForDay = [
+      final defaults = [
         {'mealType': 'Breakfast', ...breakfast, 'time': '07:00'},
         {'mealType': 'Lunch', ...lunch, 'time': '12:00'},
         {'mealType': 'Dinner', ...dinner, 'time': '18:00'},
       ];
 
-      for (final meal in mealsForDay) {
-        await db.insert('meals', {
-          'mealType': meal['mealType'],
-          'foodName': meal['foodName'],
-          'calories': meal['calories'],
-          'note': meal['note'],
-          'date': day,
-          'time': meal['time'],
-          'completed': 0,
-        });
+      for (final meal in defaults) {
+        if (!existingTypes.contains(meal['mealType'])) {
+          await db.insert('meals', {
+            'mealType': meal['mealType'],
+            'foodName': meal['foodName'],
+            'calories': meal['calories'],
+            'note': meal['note'],
+            'date': day,
+            'time': meal['time'],
+            'completed': 0,
+          });
+        }
       }
     }
     final res = await db.query('meals', where: 'date = ?', whereArgs: [day]);
@@ -429,63 +430,11 @@ class GymDatabaseHelper {
 
   // ===== Helper methods for workout options =====
   static List<String> getMuscleGroups() {
-    return ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Abs', 'Full Body'];
+    return _workoutPlans.keys.toList();
   }
 
   static List<Map<String, String>> getWorkoutsByMuscleGroup(String muscleGroup) {
-    Map<String, List<Map<String, String>>> workoutPlans = {
-      'Chest': [
-        {'name': 'Bench Press', 'note': '3 sets x 12 reps'},
-        {'name': 'Incline Dumbbell Press', 'note': '3 sets x 10 reps'},
-        {'name': 'Push-up', 'note': '4 sets x 15 reps'},
-        {'name': 'Cable Fly', 'note': '3 sets x 12 reps'},
-        {'name': 'Chest Dip', 'note': '3 sets x 8 reps'},
-      ],
-      'Back': [
-        {'name': 'Pull-up', 'note': '4 sets x 8 reps'},
-        {'name': 'Bent-over Row', 'note': '4 sets x 10 reps'},
-        {'name': 'Lat Pulldown', 'note': '3 sets x 12 reps'},
-        {'name': 'Seated Row', 'note': '3 sets x 12 reps'},
-        {'name': 'Deadlift', 'note': '3 sets x 8 reps'},
-      ],
-      'Legs': [
-        {'name': 'Squat', 'note': '4 sets x 10 reps'},
-        {'name': 'Lunges', 'note': '3 sets x 12 reps each leg'},
-        {'name': 'Leg Press', 'note': '4 sets x 10 reps'},
-        {'name': 'Leg Curl', 'note': '3 sets x 12 reps'},
-        {'name': 'Calf Raise', 'note': '4 sets x 15 reps'},
-      ],
-      'Shoulders': [
-        {'name': 'Overhead Press', 'note': '3 sets x 12 reps'},
-        {'name': 'Lateral Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Front Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Rear Delt Fly', 'note': '3 sets x 12 reps'},
-        {'name': 'Arnold Press', 'note': '3 sets x 10 reps'},
-      ],
-      'Arms': [
-        {'name': 'Bicep Curl', 'note': '3 sets x 15 reps'},
-        {'name': 'Hammer Curl', 'note': '3 sets x 15 reps'},
-        {'name': 'Tricep Pushdown', 'note': '3 sets x 12 reps'},
-        {'name': 'Skull Crusher', 'note': '3 sets x 10 reps'},
-        {'name': 'Close-grip Bench Press', 'note': '3 sets x 10 reps'},
-      ],
-      'Abs': [
-        {'name': 'Plank', 'note': '3 sets x 1 min hold'},
-        {'name': 'Crunch', 'note': '3 sets x 20 reps'},
-        {'name': 'Leg Raise', 'note': '3 sets x 15 reps'},
-        {'name': 'Bicycle Crunch', 'note': '3 sets x 20 reps'},
-        {'name': 'Mountain Climber', 'note': '3 sets x 30 secs'},
-      ],
-      'Full Body': [
-        {'name': 'Burpee', 'note': '3 sets x 15 reps'},
-        {'name': 'Kettlebell Swing', 'note': '3 sets x 20 reps'},
-        {'name': 'Thruster', 'note': '3 sets x 12 reps'},
-        {'name': 'Clean and Press', 'note': '3 sets x 8 reps'},
-        {'name': 'Jump Squat', 'note': '3 sets x 15 reps'},
-      ],
-    };
-    
-    return workoutPlans[muscleGroup] ?? [];
+    return _workoutPlans[muscleGroup] ?? [];
   }
 
 }
